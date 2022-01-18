@@ -6,7 +6,7 @@ button:
   toggle_dark: Включить темный режим
   toggle_langs: Сменить язык
 intro:
-  desc: Самостоятельный начальный шаблон Vite
+  desc: 'доступные на данный момент кабинеты:'
   dynamic-route: Демо динамического маршрута
   hi: Привет, {name}!
   whats-your-name: Как тебя зовут?

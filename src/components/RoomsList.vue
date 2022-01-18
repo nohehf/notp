@@ -1,0 +1,67 @@
+<script setup lang="ts">
+import ICAL from 'ical.js'
+const allRooms = ['C201', 'C202', 'C203', 'C204', 'C205', 'C206', 'C209', 'C302', 'C303', 'C304', 'C305', 'C306', 'C308', 'C309', 'C310']
+const emptyRooms = ['C202', 'C206', 'C305', 'C305', 'C305', 'C305', 'C305', 'C305', 'C305', 'C305', 'C305', 'C305', 'C305', 'C305', 'C305', 'C305']
+const calUrl = 'https://edt.inp-toulouse.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=3794,304,310,305,306,308,307,309,312,313,314,315,316,317,318,319&projectId=35&calType=ical&firstDate=2021-08-01&lastDate=2022-08-01'
+
+const calTest = `BEGIN:VCALENDAR
+METHOD:REQUEST
+PRODID:-//ADE/version 6.0
+VERSION:2.0
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+DTSTAMP:20220118T203219Z
+DTSTART:20220316T151500Z
+DTEND:20220316T170000Z
+SUMMARY:N6EN05A - TP - 1SN-I - Technologie objet
+LOCATION:C305
+DESCRIPTION:\n\n\n1SNI 13\nPELISSIER-COMBESCURE Marie\n(Exporté le:18/01/2022 21:32)\n
+UID:ADE604e37323032312d323032322d393336342d302d36
+CREATED:19700101T000000Z
+LAST-MODIFIED:20220118T203219Z
+SEQUENCE:-2093089757
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20220118T203219Z
+DTSTART:20220309T151500Z
+DTEND:20220309T170000Z
+SUMMARY:N8EN06B - TP - 2SN-M1 - EDP
+LOCATION:C205
+DESCRIPTION:\n\n\n2SN TP M1 (14)\nSuperman 2SN\n(Exporté le:18/01/2022 21
+ :32)\n
+UID:ADE604e37323032312d323032322d31313236382d302d33
+CREATED:19700101T000000Z
+LAST-MODIFIED:20220118T203219Z
+SEQUENCE:-2093089757
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20220118T203219Z
+DTSTART:20220224T091500Z
+DTEND:20220224T110000Z
+SUMMARY:N6EN04B - TP - 1SN-F - Analyse de données
+LOCATION:C206
+DESCRIPTION:\n\n\n1SN-F (15)\nMeslet Millet Fabien\n(Exporté le:18/01/202
+ 2 21:32)\n
+UID:ADE604e37323032312d323032322d383938312d302d31
+CREATED:19700101T000000Z
+LAST-MODIFIED:20220118T203219Z
+SEQUENCE:-2093089757
+END:VEVENT
+END:VCALENDAR`
+
+// const ical = ICAL.parse(calTest)
+fetch(calUrl, {
+  mode: 'cors',
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+  },
+}).then((response) => { console.log(response) })
+</script>
+
+<template>
+  <div class="m-auto flex justify-center max-w-150 flex-wrap">
+    <div v-for="(room, index) in emptyRooms" :key="index" class="w-18 border-2 border-light-500/50 p-2 rounded-lg m-2">
+      {{ room }}
+    </div>
+  </div>
+</template>
