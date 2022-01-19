@@ -7,7 +7,7 @@ const emptyRoomsNow = ref<string[]>([])
 const emptyRoomsAfter = ref<string[]>([])
 const lastUpdate = ref<string>()
 const refreshState = ref(false)
-const apiEndpoint = import.meta.env.VITE_APP_API ?? 'http://localhost:3000'
+const apiEndpoint = 'http://localhost:8080' // import.meta.env.VITE_APP_API ?? 'http://localhost:3000'
 
 const currentList = computed(() => props.now ? emptyRoomsNow.value : emptyRoomsAfter.value)
 // const ical = ICAL.parse(calTest)
@@ -21,7 +21,7 @@ fetch(apiEndpoint, {
     console.log(data)
     emptyRoomsNow.value = data.freeNow
     emptyRoomsAfter.value = data.freeAfter
-    lastUpdate.value = data.lastUpdate
+    lastUpdate.value = new Date(data.lastUpdate).toLocaleString('fr-EU')
   })
   .catch(err => alert('error'))
 </script>
@@ -35,7 +35,7 @@ fetch(apiEndpoint, {
     </div>
     <div>
       <p class="opacity-50">
-        last update: {{ lastUpdate ?? "?" }}
+        last update: {{ lastUpdate ? lastUpdate : "?" }}
       </p>
       <br>
       <!-- <button @click="() => {$forceUpdate}">

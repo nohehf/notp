@@ -5,8 +5,7 @@ import ical from 'node-ical'
 import express from 'express'
 import cors from 'cors'
 const allRooms = ['C201', 'C202', 'C203', 'C204', 'C205', 'C206', 'C209', 'C302', 'C303', 'C304', 'C305', 'C306', 'C308', 'C309', 'C310']
-const calUrl = 'https://edt.inp-toulouse.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319&projectId=35&calType=ical&firstDate=2021-08-01&lastDate=2022-07-15'
-
+const calUrl = process.env.CALURL
 const results = {
   usedNow: [],
   usedAfter: [],
@@ -81,7 +80,7 @@ function updateData() {
     }
     results.usedNow = results.usedNow.flat()
     results.usedAfter = results.usedAfter.flat()
-    results.lastUpdate = startDate.toUTCString()
+    results.lastUpdate = startDate
 
     filterResults(results.freeNow, results.usedNow)
     filterResults(results.freeAfter, results.usedAfter)
