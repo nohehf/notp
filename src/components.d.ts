@@ -10,7 +10,6 @@ declare module 'vue' {
     CarbonLogoGithub: typeof import('~icons/carbon/logo-github')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
-    CarbonWarning: typeof import('~icons/carbon/warning')['default']
     Counter: typeof import('./components/Counter.vue')['default']
     'Emojione:tearOffCalendar': typeof import('~icons/emojione/tear-off-calendar')['default']
     Footer: typeof import('./components/Footer.vue')['default']
