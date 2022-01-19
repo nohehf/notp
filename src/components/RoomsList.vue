@@ -7,7 +7,7 @@ const emptyRoomsNow = ref<string[]>([])
 const emptyRoomsAfter = ref<string[]>([])
 const lastUpdate = ref<string>()
 const refreshState = ref(false)
-const apiEndpoint = process.env.VUE_APP_API ?? 'http://localhost:3000'
+const apiEndpoint = import.meta.env.VUE_APP_API ?? 'http://localhost:3000'
 
 const currentList = computed(() => props.now ? emptyRoomsNow.value : emptyRoomsAfter.value)
 // const ical = ICAL.parse(calTest)
