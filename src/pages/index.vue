@@ -33,7 +33,7 @@ const { t } = useI18n()
       </p>
     </button>
     <p class="mt-4">
-      <em class="opacity-75">{{ (now ? t('currently') : t('plustwo')) + ' @N7:' }}</em>
+      <em class="text-xl opacity-75">{{ (now ? t('currently') : t('plustwo')) + ' @N7:' }}</em>
     </p>
     <rooms-list :now="now" />
   </div>

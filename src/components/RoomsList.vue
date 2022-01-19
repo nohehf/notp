@@ -34,13 +34,13 @@ fetch(apiEndpoint, {
       </div>
     </div>
     <div>
-      <p>
-        last update at {{ lastUpdate ?? "?" }}
-        <br>
-        <button @click="() => {$forceUpdate}">
-          <mdi-refresh :class="refreshState ? 'animate-spin' : '' " />
-        </button>
+      <p class="text-light-50/50">
+        last update: {{ lastUpdate ?? "?" }}
       </p>
+      <br>
+      <!-- <button @click="() => {$forceUpdate}">
+        <mdi-refresh :class="refreshState ? 'animate-spin' : '' " />
+      </button> -->
     </div>
   </div>
 </template>
