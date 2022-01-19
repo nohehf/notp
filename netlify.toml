@@ -2,6 +2,7 @@
   # bypass npm auto install
   NPM_FLAGS = "--version"
   NODE_VERSION = "16"
+  environment = { API = "https://www.bde.enseeiht.fr/"}
 
 [build]
   publish = "dist"
