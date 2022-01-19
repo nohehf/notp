@@ -14,6 +14,7 @@ declare module 'vue' {
     'Emojione:tearOffCalendar': typeof import('~icons/emojione/tear-off-calendar')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     MdiNumericPositive1: typeof import('~icons/mdi/numeric-positive1')['default']
+    MdiRefresh: typeof import('~icons/mdi/refresh')['default']
     MdiTimerOutline: typeof import('~icons/mdi/timer-outline')['default']
     README: typeof import('./components/README.md')['default']
     RoomsList: typeof import('./components/RoomsList.vue')['default']

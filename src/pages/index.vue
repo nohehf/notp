@@ -1,17 +1,9 @@
 <script setup lang="ts">
-import { useUserStore } from '~/stores/user'
 
-const user = useUserStore()
-const name = ref(user.savedName)
+const now = ref(true)
 
 const active = 'm-2 w-20 border-2 border-green-500 rounded-lg p-2'
 const inactive = 'm-2 w-20 border border-gray-500/50 rounded-lg p-2'
-
-const router = useRouter()
-const go = () => {
-  if (name.value)
-    router.push(`/hi/${encodeURIComponent(name.value)}`)
-}
 
 const { t } = useI18n()
 </script>
@@ -27,23 +19,23 @@ const { t } = useI18n()
       </a>
     </p>
 
-    <button :class="active">
+    <button :class="now ? active : inactive" @click="()=>{now = true}">
       <p class="text-xl">
         <mdi-timer-outline class="inline-bloc" />
         Now
       </p>
     </button>
-    <button :class="inactive">
+    <button :class="now ? inactive : active" @click="()=>{now = false}">
       <p class="text-xl">
         <mdi-numeric-positive-1 class="inline-bloc" />
         <br>
-        h +1
+        Next
       </p>
     </button>
     <p class="mt-4">
-      <em class="opacity-75">{{ t('intro.desc') + ' @N7:' }}</em>
+      <em class="opacity-75">{{ (now ? t('currently') : t('plustwo')) + ' @N7:' }}</em>
     </p>
-    <rooms-list :now="false" />
+    <rooms-list :now="now" />
   </div>
 </template>
 

@@ -5,6 +5,7 @@ button:
   home: Home
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
+currently: currently available classrooms
 intro:
   aka: Also known as
   desc: currently available classrooms
@@ -12,3 +13,4 @@ intro:
   hi: Hi, {name}!
   whats-your-name: What's your name?
 not-found: Not found
+plustwo: next slot (+2h)  available classrooms

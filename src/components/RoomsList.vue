@@ -1,14 +1,15 @@
 <script setup lang="ts">
+import Vue from 'vue'
 const props = defineProps({
   now: Boolean,
 })
 const emptyRoomsNow = ref<string[]>([])
 const emptyRoomsAfter = ref<string[]>([])
 const lastUpdate = ref<string>()
+const refreshState = ref(false)
 const apiEndpoint = 'http://localhost:3000'
 
 const currentList = computed(() => props.now ? emptyRoomsNow.value : emptyRoomsAfter.value)
-
 // const ical = ICAL.parse(calTest)
 fetch(apiEndpoint, {
   mode: 'cors',
@@ -26,16 +27,18 @@ fetch(apiEndpoint, {
 </script>
 
 <template>
-  <div class="m-auto flex justify-center max-w-150 flex-wrap">
-    <div v-for="(room, index) in currentList" :key="index" class="w-18 border-2 border-light-500/50 p-2 rounded-lg m-2">
-      {{ room }}
+  <div>
+    <div class="m-auto flex justify-center max-w-150 flex-wrap">
+      <div v-for="(room, index) in currentList" :key="index" class="w-18 border-2 border-light-500/50 p-2 rounded-lg m-2">
+        {{ room }}
+      </div>
     </div>
     <div>
       <p>
         last update at {{ lastUpdate ?? "?" }}
         <br>
-        <button>
-          Refresh
+        <button @click="() => {$forceUpdate}">
+          <mdi-refresh :class="refreshState ? 'animate-spin' : '' " />
         </button>
       </p>
     </div>

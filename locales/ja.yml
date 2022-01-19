@@ -5,6 +5,7 @@ button:
   home: ホーム
   toggle_dark: ダークモード切り替え
   toggle_langs: 言語切り替え
+currently: 現在利用可能なクラスロム
 intro:
   desc: 現在利用可能な教室：
   dynamic-route: 動的ルートのデモ

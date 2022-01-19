@@ -5,6 +5,7 @@ button:
   home: Accueil
   toggle_dark: Basculer en mode sombre
   toggle_langs: Changer de langue
+currently: classes actuellement disponibles
 intro:
   aka: Aussi connu sous le nom de
   desc: 'salles de classe actuellement disponibles :'
