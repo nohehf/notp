@@ -43,7 +43,7 @@ const { t } = useI18n()
     <p class="mt-4">
       <em class="opacity-75">{{ t('intro.desc') + ' @N7:' }}</em>
     </p>
-    <rooms-list />
+    <rooms-list :now="false" />
   </div>
 </template>
 
