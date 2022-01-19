@@ -29,7 +29,7 @@ const toggleLocales = () => {
       <carbon-dicom-overlay />
     </router-link>
 
-    <a class="icon-btn mx-2" rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank" title="GitHub">
+    <a class="icon-btn mx-2" rel="noreferrer" href="https://github.com/nohehf/notp" target="_blank" title="GitHub">
       <carbon-logo-github />
     </a>
   </nav>

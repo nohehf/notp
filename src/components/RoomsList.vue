@@ -29,12 +29,12 @@ fetch(apiEndpoint, {
 <template>
   <div>
     <div class="m-auto flex justify-center max-w-150 flex-wrap">
-      <div v-for="(room, index) in currentList" :key="index" class="w-18 border-2 border-light-500/50 p-2 rounded-lg m-2">
+      <div v-for="(room, index) in currentList" :key="index" class="w-18 border-2 opacity-90 border-current p-2 rounded-lg m-2">
         {{ room }}
       </div>
     </div>
     <div>
-      <p class="text-light-50/50">
+      <p class="opacity-50">
         last update: {{ lastUpdate ?? "?" }}
       </p>
       <br>

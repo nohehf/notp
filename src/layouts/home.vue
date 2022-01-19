@@ -3,7 +3,10 @@
     <router-view />
     <Footer />
     <div class="mt-5 mx-auto text-center opacity-25 text-sm">
-      [Home Layout]
+      <a href="https://github.com/nohehf">
+        [Made with
+        <mdi-heart-circle class="align-middle" />
+        by nohehf]</a>
     </div>
   </main>
 </template>
