@@ -22,14 +22,15 @@ setInterval(updateData, REFRESH_RATE)
 const app = express()
 app.use(cors())
 // app.use(express.json())
-const port = 3000
+const PORT = 8080
+const HOST = '0.0.0.0'
 
 app.get('/', (req, res) => {
   res.json(results)
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+app.listen(PORT, HOST, () => {
+  console.log(`Running on http://${HOST}:${PORT}`)
 })
 
 updateData()
@@ -80,6 +81,7 @@ function updateData() {
     }
     results.usedNow = results.usedNow.flat()
     results.usedAfter = results.usedAfter.flat()
+    results.lastUpdate = startDate.toUTCString()
 
     filterResults(results.freeNow, results.usedNow)
     filterResults(results.freeAfter, results.usedAfter)
