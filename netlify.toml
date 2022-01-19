@@ -2,7 +2,6 @@
   # bypass npm auto install
   NPM_FLAGS = "--version"
   NODE_VERSION = "16"
-  environment = { API = "https://www.bde.enseeiht.fr/"}
 
 [build]
   publish = "dist"
@@ -17,6 +16,3 @@
   for = "/manifest.webmanifest"
   [headers.values]
     Content-Type = "application/manifest+json"
-
-[context.production]
-  environment = { API = "https://www.bde.enseeiht.fr/"}
