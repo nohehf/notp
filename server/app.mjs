@@ -1,39 +1,38 @@
+import fs from 'fs'
 import ical from 'node-ical'
-
-// faire tourner ça toutes les 30 minutes
-
 import express from 'express'
 import cors from 'cors'
-const allRooms = ['C201', 'C202', 'C203', 'C204', 'C205', 'C206', 'C209', 'C302', 'C303', 'C304', 'C305', 'C306', 'C308', 'C309', 'C310']
-const calUrl = process.env.CALURL
+
+const config = JSON.parse(fs.readFileSync('config.json'))
+console.log('lodaded config: ', config)
+
 const initResults = {
   usedNow: [],
   usedAfter: [],
-  freeNow: [...allRooms],
-  freeAfter: [...allRooms],
+  freeNow: [...config.roomsList],
+  freeAfter: [...config.roomsList],
   startDate: null,
   startDateAfter: null,
-  allRooms,
-  lastUpdate: new Date(Date.now()).toUTCString(),
+  allRooms: config.roomsList,
+  lastUpdate: null,
+  nextUpdate: null,
 }
 let results = {
-  usedNow: [],
-  usedAfter: [],
-  freeNow: [...allRooms],
-  freeAfter: [...allRooms],
-  startDate: null,
-  startDateAfter: null,
-  allRooms,
-  lastUpdate: new Date(Date.now()).toUTCString(),
+  usedNow: [], // rooms curenty used
+  usedAfter: [], // rooms used during next time slot
+  freeNow: [...config.roomsList], // rooms curently free
+  freeAfter: [...config.roomsList], // free rooms during next time slot
+  startDate: null, // current time slot starting date
+  startDateAfter: null, // next time slot starting date
+  allRooms: config.roomsList, // all the tracked rooms
+  lastUpdate: null, // date of the last data update,
+  nextUpdate: null, // date of the next update
 }
 
-const REFRESH_RATE = 10 * 60 * 1000 // 10 minutes
-
-setInterval(updateData, REFRESH_RATE)
+setInterval(updateData, config.refreshRate * 60 * 1000)
 
 const app = express()
 app.use(cors())
-// app.use(express.json())
 const PORT = 8080
 const HOST = '0.0.0.0'
 
@@ -55,6 +54,7 @@ function dateIsBetween(date, start, end) {
   return (date >= start && date <= end)
 }
 
+// builds the free list depending on the used list
 function filterResults(free, used) {
   for (const value of used) {
     console.log(value)
@@ -68,12 +68,12 @@ function updateData() {
   results = { ...initResults }
   const startDate = new Date(Date.now())
 
-  const startDateAfter = addHoursToDate(startDate, 2)
+  const startDateAfter = addHoursToDate(startDate, config.slotDuration)
 
   results.startDate = startDate
   results.startDateAfter = startDateAfter
 
-  ical.fromURL(calUrl, {}, (err, data) => {
+  ical.fromURL(config.calendarUrl, {}, (err, data) => {
     if (err) console.log(err)
     for (const k in data) {
       if (!Object.prototype.hasOwnProperty.call(data, k)) continue
@@ -85,10 +85,8 @@ function updateData() {
         if (isNow)
           results.usedNow.push(event.location.split(','))
 
-        if (isAfter) {
-          addHoursToDate(startDate, 1)
+        if (isAfter)
           results.usedAfter.push(event.location.split(','))
-        }
 
         if (!(isNow || isAfter)) continue
       }
@@ -96,6 +94,8 @@ function updateData() {
     results.usedNow = results.usedNow.flat()
     results.usedAfter = results.usedAfter.flat()
     results.lastUpdate = startDate
+    const nextUpdateMs = Number(startDate) + config.refreshRate * 60 * 1000
+    results.nextUpdate = new Date(nextUpdateMs)
 
     filterResults(results.freeNow, results.usedNow)
     filterResults(results.freeAfter, results.usedAfter)
