@@ -6,11 +6,24 @@ import express from 'express'
 import cors from 'cors'
 const allRooms = ['C201', 'C202', 'C203', 'C204', 'C205', 'C206', 'C209', 'C302', 'C303', 'C304', 'C305', 'C306', 'C308', 'C309', 'C310']
 const calUrl = process.env.CALURL
-const results = {
+const initResults = {
   usedNow: [],
   usedAfter: [],
   freeNow: [...allRooms],
   freeAfter: [...allRooms],
+  startDate: null,
+  startDateAfter: null,
+  allRooms,
+  lastUpdate: new Date(Date.now()).toUTCString(),
+}
+let results = {
+  usedNow: [],
+  usedAfter: [],
+  freeNow: [...allRooms],
+  freeAfter: [...allRooms],
+  startDate: null,
+  startDateAfter: null,
+  allRooms,
   lastUpdate: new Date(Date.now()).toUTCString(),
 }
 
@@ -52,11 +65,13 @@ function filterResults(free, used) {
 }
 
 function updateData() {
+  results = { ...initResults }
   const startDate = new Date(Date.now())
-  const endDate = addHoursToDate(startDate, 1)
 
   const startDateAfter = addHoursToDate(startDate, 2)
-  const endDateAfter = addHoursToDate(endDate, 2)
+
+  results.startDate = startDate
+  results.startDateAfter = startDateAfter
 
   ical.fromURL(calUrl, {}, (err, data) => {
     if (err) console.log(err)
@@ -65,8 +80,8 @@ function updateData() {
       const event = data[k]
 
       if (Object.hasOwnProperty.call(event, 'start') && Object.hasOwnProperty.call(event, 'end')) {
-        const isNow = dateIsBetween(new Date(event.start), startDate, endDate)
-        const isAfter = dateIsBetween(new Date(event.start), startDateAfter, endDateAfter)
+        const isNow = dateIsBetween(startDate, new Date(event.start), new Date(event.end))
+        const isAfter = dateIsBetween(startDateAfter, new Date(event.start), new Date(event.end))
         if (isNow)
           results.usedNow.push(event.location.split(','))
 
