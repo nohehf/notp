@@ -8,7 +8,7 @@ RUN npm install pnpm -g
 
 RUN pnpm install --only=prod
 
-COPY ./server/* .
+COPY ./server/* ./
 
 EXPOSE 8080
 CMD [ "node", "app.mjs" ]
