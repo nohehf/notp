@@ -66,6 +66,8 @@ function filterResults(free, used) {
 
 function updateData() {
   results = { ...initResults }
+  results.usedNow = []
+  results.usedAfter = []
   const startDate = new Date(Date.now())
 
   const startDateAfter = addHoursToDate(startDate, config.slotDuration)
