@@ -16,6 +16,7 @@ const initResults = {
   allRooms: config.roomsList,
   lastUpdate: null,
   nextUpdate: null,
+  version: config.version,
 }
 let results = {
   usedNow: [], // rooms curenty used
@@ -27,6 +28,7 @@ let results = {
   allRooms: config.roomsList, // all the tracked rooms
   lastUpdate: null, // date of the last data update,
   nextUpdate: null, // date of the next update
+  version: config.version,
 }
 
 setInterval(updateData, config.refreshRate * 60 * 1000)
@@ -68,6 +70,8 @@ function updateData() {
   results = { ...initResults }
   results.usedNow = []
   results.usedAfter = []
+  results.freeNow = [...config.roomsList]
+  results.freeAfter = [...config.roomsList]
   const startDate = new Date(Date.now())
 
   const startDateAfter = addHoursToDate(startDate, config.slotDuration)

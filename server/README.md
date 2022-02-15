@@ -15,5 +15,7 @@ The fields are:
 ## Build:
 `docker build . -t nohehf/notp-server`
 
+Mac os:
+`docker buildx build --platform linux/amd64,linux/arm64 --push -t harbor.k8s.inpt.fr/net7/notp:2.0.3 .`
 ## Run:
 `docker run -p 3000:8080 -d nohehf/notp-server`
