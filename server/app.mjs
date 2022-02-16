@@ -6,6 +6,14 @@ import cors from 'cors'
 const config = JSON.parse(fs.readFileSync('config.json'))
 console.log('lodaded config: ', config)
 
+class Results {
+  constructor() {
+    this.allRooms = [...config.roomsList]
+    this.freeNow = [...config.roomsList]
+    this.freeAfter = [...config.roomsList]
+  }
+}
+
 const initResults = {
   usedNow: [],
   usedAfter: [],
